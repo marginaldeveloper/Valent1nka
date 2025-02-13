@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для Каришки ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Rubik Mono One', sans-serif;
+            background: #121212;
+            color: #ff85c0;
+            overflow: hidden;
+            text-align: center;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .bg_heart {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .heart {
+            position: absolute;
+            top: -10%;
+            transform: rotate(-45deg);
+            background: linear-gradient(45deg, #ff007f, #ff77b9, #ff007f);
+            animation: love 6s linear infinite;
+        }
+
+        .heart:before, .heart:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .heart:before { top: -50%; left: 0; }
+        .heart:after { top: 0; right: -50%; }
+
+        @keyframes love {
+            0% { top: 110%; opacity: 1; }
+            100% { top: -10%; opacity: 0; }
+        }
+
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            text-shadow: 3px 3px 10px rgba(255, 0, 128, 0.6);
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg_heart"></div>
+    <div class="message">Кариша, нажми куда угодно 💖</div>
+    <audio id="music" src="blue.mp3"></audio>
+
+    <script>
+        const messages = [
+        "сквозь серый холод, страх и боль,",
+        "мне свет надежды сердце грел.",
+        "ты стала всем,ты стала мной,",
+        "с тобой я жить вновь захотел.",
+        "голос развеял мрак и тьму,",
+        "душа наполнилась весной.",
+        "теперь я верю в чудеса,",
+        "ведь ты со мной, моя любовь.💖",
+        "карин, спасибо тебе, что ты до сих пор со мной",
+        "до сих пор верна и любима."
+        ];
+
+        let currentPage = 0;
+        let musicPlayed = false;
+
+        function showMessage() {
+            document.querySelector('.message').innerText = messages[currentPage];
+        }
+
+        document.querySelector('.bg_heart').addEventListener('click', function() {
+            if (!musicPlayed) {
+                document.getElementById("music").play();
+                musicPlayed = true;
+            }
+
+            if (currentPage < messages.length - 1) {
+                currentPage++;
+                showMessage();
+            } else {
+                window.location.href = "love.html";
+            }
+        });
+
+        setInterval(() => {
+            let heart = document.createElement("div");
+            let size = Math.random() * 40 + 20;
+            let left = Math.random() * 100;
+            heart.className = "heart";
+            heart.style.width = size + "px";
+            heart.style.height = size + "px";
+            heart.style.left = left + "%";
+            document.querySelector(".bg_heart").appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }, 300);
+    </script>
+</body>
+</html>
